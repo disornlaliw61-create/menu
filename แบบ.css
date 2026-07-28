@@ -1,0 +1,71 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.desktop-container {
+    /* เปลี่ยน URL รูปภาพด้านล่างเป็นรูปพื้นหลังที่คุณต้องการ */
+    background-image: url('https://png.pngtree.com/background/20250102/original/pngtree-surreal-mountain-and-moon-scene-pc-wallpaper-picture-image_15736352.jpg'); 
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    position: relative;
+    padding: 50px;
+}
+
+/* จัดวางกลุ่มไอคอน */
+.icon-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 30px;
+    max-width: 800px;
+}
+
+.icon-item img {
+    width: 65px;
+    height: 65px;
+    transition: transform 0.2s;
+    filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.3));
+}
+
+.icon-item:hover img {
+    transform: scale(1.1);
+}
+
+/* แถบ Taskbar ด้านล่าง */
+.taskbar {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.search-bar {
+    flex-grow: 1;
+    margin: 0 20px;
+}
+
+.search-bar input {
+    width: 100%;
+    max-width: 400px;
+    padding: 8px 15px;
+    border-radius: 20px;
+    border: none;
+    background: rgba(255, 255, 255, 0.8);
+}
