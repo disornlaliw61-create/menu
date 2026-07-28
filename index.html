@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Desktop Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            /* ใส่ URL รูปพื้นหลังของคุณที่นี่ */
+            background: url('https://i.ytimg.com/vi/dWXhdUw8M2s/maxresdefault.jpg') no-repeat center center fixed;
+            background-size: cover;
+            height: 100vh;
+            overflow: hidden;
+            color: white;
+        }
+
+        /* ส่วนของ Desktop Icons */
+        .desktop-icons {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            grid-gap: 20px;
+            padding: 30px;
+            max-width: 900px;
+        }
+
+        .icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .icon:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            transform: scale(1.1);
+        }
+
+        .icon img {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 5px;
+        }
+
+        /* ส่วนของ Taskbar */
+        .taskbar {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 50px;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+            justify-content: space-between;
+        }
+
+        .taskbar-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .start-btn { width: 30px; cursor: pointer; }
+
+        .search-bar {
+            background: white;
+            border-radius: 20px;
+            padding: 5px 15px;
+            display: flex;
+            align-items: center;
+            width: 250px;
+        }
+
+        .search-bar input {
+            border: none;
+            outline: none;
+            width: 100%;
+            margin-left: 5px;
+        }
+
+        /* ส่วนของเวลาและสถานะเน็ต */
+        .taskbar-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            font-size: 14px;
+            text-align: right;
+        }
+
+        .status-icon {
+            font-size: 18px;
+        }
+
+        .online { color: #44ff44; }
+        .offline { color: #ff4444; }
+
+    </style>
+</head>
+<body>
+
+    <div class="desktop-icons">
+        
+                  <a href="https://www.facebook.com" target="_blank" class="app-link">
+        <div class="icon">
+            <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="FB">
+            <span>Facebook</span>
+        </div>
+    </a>
+
+    <a href="https://www.instagram.com" target="_blank" class="app-link">
+        <div class="icon">
+            <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="IG">
+            <span>Instagram</span>
+        </div>
+    </a>
+
+    <a href="https://web.whatsapp.com" target="_blank" class="app-link">
+        <div class="icon">
+            <img src="https://cdn-icons-png.flaticon.com/512/124/124034.png" alt="WA">
+            <span>WhatsApp</span>
+        </div>
+    </a>
+
+    <a href="https://weibo.com" target="_blank" class="app-link">
+        <div class="icon">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBriD-YTK1e5V3Iqiy515jlV1WWWLg0bAGJw&s" alt="Weibo">
+            <span>Weibo</span>
+        </div>
+    </a>
+
+    <a href="https://discord.com" target="_blank" class="app-link">
+        <div class="icon">
+            <img src="https://cdn-icons-png.flaticon.com/512/3670/3670151.png" alt="Discord">
+            <span>Discord</span>
+        </div>
+    </a>
+
+    <a href="https://drive.google.com" target="_blank" class="app-link">
+        <div class="icon">
+            <img src="data:image/jpeg;base64,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" alt="Drive">
+            <span>Drive</span>
+        </div>
+    </a>
+
+    <a href="https://www.youtube.com" target="_blank" class="app-link">
+        <div class="icon">
+            <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YT">
+            <span>YouTube</span>
+        </div>
+    </a>
+
+    <a href="https://classroom.google.com" target="_blank" class="app-link">
+        <div class="icon">
+            <img src="data:image/jpeg;base64,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" alt="Classroom">
+            <span>Classroom</span>
+        </div>
+    </a>
+
+    <a href="https://docs.google.com/document/u/0/" target="_blank" class="app-link">
+        <div class="icon">
+            <img src="https://www.gstatic.com/images/branding/product/1x/docs_2020q4_48dp.png" alt="cods">
+            <span>cods</span>
+        </div>
+    </a>
+
+    <a href="https://docs.google.com/spreadsheets/u/0/" target="_blank" class="app-link">
+        <div class="icon">
+            <img src="https://www.gstatic.com/images/branding/product/1x/sheets_2020q4_48dp.png" alt="sheet">
+            <span>sheet</span>
+        </div>
+    </a>
+
+    <a href="https://docs.google.com/presentation/u/0/" target="_blank" class="app-link">
+        <div class="icon">
+            <img src="https://www.gstatic.com/images/branding/product/1x/slides_2020q4_48dp.png" alt="สไลค์">
+            <span>สไลค์</span>
+        </div>
+    </a>
+
+    <a href="https://keep.google.com/" target="_blank" class="app-link">
+        <div class="icon">
+            <img src="https://www.gstatic.com/images/branding/product/2x/keep_2020q4_48dp.png" alt="keep">
+            <span>keep</span>
+        </div>
+    </a>
+
+    <a href="https://docs.google.com/forms/u/0/?tgif=d" target="_blank" class="app-link">
+        <div class="icon">
+            <img src="https://www.gstatic.com/images/branding/product/1x/forms_2020q4_48dp.png" alt="keep">
+            <span>forms</span>
+        </div>
+    </a>
+
+    <a href="https://www.e-tech.ac.th/site/index.php" target="_blank" class="app-link">
+        <div class="icon">
+            <img src="https://www.e-tech.ac.th/site/images/logo_etech.png" alt="keep">
+            <span>e-tech</span>
+        </div>
+    </a>
+
+   
+
+     <a href="https://disornlaliw239-web.github.io/disorn_fi/" target="_blank" class="app-link">
+        <div class="icon">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1sDZeWoJx3xBgjbntRZKhSfSsionefDWI5r-KrNhHIg&s" alt="keep">
+            <span>บันทึกค่าไฟฟ้า</span>
+        </div>
+    </a>
+
+    <a href="https://disornlaliw239-web.github.io/disorn_manny3/" target="_blank" class="app-link">
+        <div class="icon">
+            <img src="https://cdn.creazilla.com/emojis/48258/bank-emoji-clipart-md.png" alt="keep">
+            <span>สรุปค่าใช้จ่าย</span>
+        </div>
+    </a>
+
+         <a href="https://docs.google.com/spreadsheets/d/18fkQ5goUJARj1MFWYa1q0-RCBvFqfNN46gmrzUlzHVQ/edit?gid=1976628385#gid=1976628385" target="_blank" class="app-link">
+        <div class="icon">
+            <img src="https://png.pngtree.com/png-clipart/20230915/original/pngtree-finance-money-graph-report-vector-png-image_12206478.png" alt="keep">
+            <span>สรุปยอดทั้งหมด</span>
+        </div>
+    </a>
+
+    </div>
+
+
+    <div class="taskbar">
+        <div class="taskbar-left">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Windows_logo_-_2012.svg" class="start-btn" alt="Start">
+            <div class="search-bar">
+                🔍 <input type="text" placeholder="พิมพ์เพื่อค้นหา...">
+            </div>
+        </div>
+
+        <div class="taskbar-right">
+            <div id="net-status" class="status-icon">📶 Checking...</div>
+            <div id="date-time">
+                <div id="clock">00:00:00</div>
+                <div id="date">1 มกราคม 2567</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ฟังก์ชันอัปเดตเวลาไทย
+        function updateDateTime() {
+            const now = new Date();
+            
+            // รูปแบบเวลา
+            const timeString = now.toLocaleTimeString('th-TH', { hour12: false });
+            
+            // รูปแบบวันที่
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            const dateString = now.toLocaleDateString('th-TH', options);
+
+            document.getElementById('clock').textContent = timeString;
+            document.getElementById('date').textContent = dateString;
+        }
+
+        // ฟังก์ชันเช็คสถานะอินเทอร์เน็ต
+        function updateOnlineStatus() {
+            const statusDisplay = document.getElementById('net-status');
+            if (navigator.onLine) {
+                statusDisplay.innerHTML = "📶 Online";
+                statusDisplay.className = "status-icon online";
+            } else {
+                statusDisplay.innerHTML = "📡 Offline";
+                statusDisplay.className = "status-icon offline";
+            }
+        }
+
+        // ตั้งค่าให้ทำงานทุกวินาที
+        setInterval(updateDateTime, 1000);
+        window.addEventListener('online', updateOnlineStatus);
+        window.addEventListener('offline', updateOnlineStatus);
+
+        // เรียกใช้งานครั้งแรก
+        updateDateTime();
+        updateOnlineStatus();
+    </script>
+</body>
+</html>
